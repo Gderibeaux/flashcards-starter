@@ -1,14 +1,11 @@
 class Deck {
-    constructor(newQuestions){
-        this.newQuestions = newQuestions
-        
-    
+    constructor(cards){
+      this.cards = cards;
     }
+  
     countCards(){
-     return this.newQuestions.length
-    
+      return this.cards.length
     }
-}
-
-// Your Deck class should be initialized with an array of Card objects and should have an accompanying test file. It should know how many Cards are in the Deck.
-module.exports = Deck;
+  }
+  
+  module.exports = Deck;

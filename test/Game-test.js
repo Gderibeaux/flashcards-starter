@@ -1,28 +1,50 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Turn = require('../src/Turn');
 const Card = require('../src/Card');
 const Deck = require('../src/Deck');
 const Round = require('../src/Round');
-const Game = require('../src/Game')
+const Turn = require('../src/Turn');
+const Game = require('../src/Game');
+const data = require('../src/data');
 
-describe("Game", function(){
+describe('Game', function(){
 
-it('should put cards in a deck', function() {
-const card1 = new Card(5, 'What is Gus\'s favorite animal?', ['sea otter', 'rhino', 'lion'], 'rhino');
-const card2 = new Card(14, 'Which one of these teams is a NBA team?', ['Dolphins', 'Marlins', 'Heat'], 'Heat');
-const card3 = new Card(12, 'What is Gus\'s middle name?', ['Ian', 'William', 'Fitzgerald'], 'Ian');
-const deck = new Deck([card1, card2, card3]);
-const turn = new Turn("rhino", card1)
-const round = new Round(deck, turn);
-const game = new Game(deck, turn, round)
-expect(game.start()).to.equal(card1)
-round.takeTurn()
-expect(game.start()).to.equal(card2)
-round.takeTurn()
-expect(game.start()).to.equal(card3)
-expect(deck.countCards()).to.equal(3)
+  let card1;
+  let card2;
+  let card3;
+  let deck;
+  let round;
+  let turn;
+  let newRound;
+  let myGame;
+  let prototypeQuestions;
 
-});
-});
+  beforeEach(() => {
+  const prototypeQuestions = data.prototypeData;
+  card1 = new Card(1, 'What is Gustavo\'s favorite animal', ['rhino', 'dog', 'snake'], 'rhino');
+  card2 = new Card(14, 'What is the capital of Florida?', ['Denver', 'Tallahssee', 'Athens'], 'Tallahssee');
+  card3 = new Card(12, 'Which is a DC superhero', ['Batman', 'Iron Man', 'Dr. Strange'], 'Batman');
+  cards = [card1, card2, card3];
+  deck = new Deck(cards);
+  round = new Round(deck);
+  turn = new Turn();
+  myGame = new Game()
+  myGame.makeCards();
+  myGame.makeDeck();
+  myGame.makeRound();
+  })
+
+
+  it('Should create an instance of card', function(){
+    expect(myGame.cards[0]).to.be.an.instanceof(Card)
+  })
+
+  it('Should create an instance of deck', function(){
+    expect(myGame.deck).to.be.an.instanceof(Deck)
+  })
+
+  it('Should create an instance of round', function(){
+    expect(myGame.round).to.be.an.instanceof(Round)
+  })
+})
